@@ -1,4 +1,4 @@
-import React, { Children, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app";
 import {
   getDatabase,
