@@ -162,22 +162,6 @@ export default function FirebaseTilesDashboard() {
       () => {}
     );
 
-    //add
-    const intervalId = window.setInterval(async () => {
-      try {
-        const [readSnap, ctrlSnap] = await Promise.all([
-          get(readingsRef),
-          get(ctrlRef),
-        ]);
-
-        // set state (acts like “fetch”)
-        setLatest(readSnap.val());
-        setUserCtrl(ctrlSnap.val() || {});
-        setConnected(true);
-      } catch (e) {
-        setConnected(false);
-      }
-    }, 1000);
 
     // Subscribe to plates
     const platesRef = dbRef(db, PLATES_PATH);
