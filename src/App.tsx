@@ -6,7 +6,6 @@ import {
   onValue,
   off,
   update,
-  get,
   query,
   orderByChild,
   limitToLast,
@@ -130,7 +129,7 @@ export default function FirebaseTilesDashboard() {
     return new Date(ms).toLocaleString();
   }
 
-  const unsubRef = useRef<() => void>();
+  const unsubRef = useRef<(() => void) | null>(null);
 
   // Initialize and subscribe on mount
   useEffect(() => {
@@ -161,7 +160,6 @@ export default function FirebaseTilesDashboard() {
       },
       () => {}
     );
-
 
     // Subscribe to plates
     const platesRef = dbRef(db, PLATES_PATH);
@@ -402,7 +400,7 @@ export default function FirebaseTilesDashboard() {
                       dataKey="ts_pi_ms"
                       tickFormatter={(v) => fmtTime(v)}
                     />
-                    <YAxis domain={['auto', 'auto']} />
+                    <YAxis domain={["auto", "auto"]} />
 
                     <Tooltip
                       labelFormatter={(v) =>
@@ -439,7 +437,7 @@ export default function FirebaseTilesDashboard() {
                       dataKey="ts_pi_ms"
                       tickFormatter={(v) => fmtTime(v)}
                     />
-                    <YAxis domain={['dataMin - 2', 'auto']} />
+                    <YAxis domain={["dataMin - 2", "auto"]} />
 
                     <Tooltip
                       labelFormatter={(v) =>
@@ -521,7 +519,7 @@ const styles = {
     justifyContent: "space-between",
     flexWrap: "wrap",
     gap: "1rem",
-  },
+  } as const,
   title: {
     fontSize: "1.875rem",
     fontWeight: "bold",
@@ -606,31 +604,3 @@ const styles = {
 const buttonHoverStyle = {
   backgroundColor: "#4338ca",
 };
-
-// Update button component to handle hover
-function Button({
-  children,
-  onClick,
-  style = {},
-}: {
-  children: React.ReactNode;
-  onClick: () => void;
-  style?: React.CSSProperties;
-}) {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <button
-      style={{
-        ...styles.button,
-        ...(isHovered ? buttonHoverStyle : {}),
-        ...style,
-      }}
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {children}
-    </button>
-  );
-}
