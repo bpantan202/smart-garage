@@ -599,8 +599,3 @@ const styles = {
     fontFamily: "inherit",
   },
 };
-
-// Add hover effect for button
-const buttonHoverStyle = {
-  backgroundColor: "#4338ca",
-};
